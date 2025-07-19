@@ -5,9 +5,9 @@ const Navbar = () => {
     <div className="navbar bg-base-200 shadow-sm">
   <div className="flex-1">
    <a className="text-2xl font-bold px-3 py-1 rounded-lg hover:bg-base-200 transition duration-300">
-  <span className="text-white">Dev</span>
+  <span className="text-white"><i class="ri-arrow-left-s-line"></i>Dev</span>
   <span className="bg-gradient-to-r from-red-500 via-blue-500 to-pink-400 bg-clip-text text-transparent">
-    Match
+    Match<i class="ri-arrow-right-s-line"></i>
   </span>
 </a>
    
