@@ -37,7 +37,7 @@ const Body = () => {
     
   },[] );
   return (
-    <div>
+    <div className='bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen text-white'>
        <Navbar />
         <Outlet />  
         <Footer />
