@@ -17,7 +17,7 @@ const UserCard = ({ user }) => {
   }
 
   return (
-    <div className="">
+    <div >
       <div className="max-w-5xl w-full mx-4 md:mx-0 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-xl rounded-2xl md:rounded-3xl border border-white/20 shadow-2xl overflow-hidden hover:shadow-purple-500/25 hover:shadow-2xl transition-all duration-500 hover:scale-[1.01]">
         <div className="flex flex-col md:flex-row">
           {/* Profile Image Section */}
