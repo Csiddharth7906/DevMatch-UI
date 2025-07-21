@@ -37,7 +37,7 @@ const Connection = () => {
                 </h1>
                 
                 {/* Desktop Grid Layout */}
-                <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* <div className="md:hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {connections.map((connection, index) => {
                         const {firstName, lastName, photoUrl, age, gender, about, skills} = connection;
                         return (
@@ -91,9 +91,9 @@ const Connection = () => {
                         );
                     })}
                 </div>
-                
+                 */}
                 {/* Mobile List Layout */}
-                <div className="md:hidden space-y-3">
+                <div className=" space-y-3">
                     {connections.map((connection, index) => {
                         const {firstName, lastName, photoUrl, age, gender, about, skills} = connection;
                         return (
