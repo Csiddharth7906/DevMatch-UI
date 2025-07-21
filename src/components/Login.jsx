@@ -6,8 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils/constants';
 
 const Login = () => {
-    const [email, setEmail] = useState('siddharthchauhan@gmail.com');
-    const [password, setPassword] = useState('Siddharth@1');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [isloginForm, setIsLoginForm] = useState(true);   
     const [error, setError] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -23,6 +26,22 @@ const Login = () => {
         } catch (error) {
             setError(error?.response?.data  || "Login failed. Please try again.");
             
+        }
+    }
+    const handleSignup = async ()=>{
+        try {
+            const res = await axios.post(BASE_URL+"/signup",{
+            firstName,
+            lastName,
+            email,
+            password
+        },{withCredentials:true});
+        
+        dispatch(addUser(res.data.data));
+        
+        navigate("/profile"); 
+        } catch (error) {
+            setError(error?.response?.data || "Signup failed. Please try again.");
         }
     }
   return (
@@ -41,10 +60,47 @@ const Login = () => {
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-8 sm:p-10 flex flex-col justify-center">
           <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
-            Hello! <br /> Welcome Back
+           { isloginForm ? "Hello! " : "Create Account" }
+            <br />
+            {isloginForm ? "Welcome Back!" : "Join Us!"}
           </h2>
 
           <div className="space-y-5">
+           {!isloginForm &&( <>
+            <div>
+              <label
+                htmlFor="firstName"
+                className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Enter First Name
+              </label>
+              <input
+                type="text"
+                value={firstName}
+                id="firstName"
+                placeholder="john"
+                className="input input-bordered w-full"
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            
+            <div>
+              <label
+                htmlFor="lastName"
+                className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Enter Last Name
+              </label>
+              <input
+                type="text"
+                value={lastName}
+                id="lastName"
+                placeholder="dua"
+                className="input input-bordered w-full"
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            </>)}
             <div>
               <label
                 htmlFor="email"
@@ -83,16 +139,16 @@ const Login = () => {
             <button
               type="submit"
               className="btn btn-primary w-full text-white font-semibold"
-              onClick={handleLogin}
+              onClick={isloginForm?handleLogin:handleSignup} 
             >
-              Sign In
+              {isloginForm?"Sign In": "Create Account"}
             </button>
 
             <p className="text-center text-sm mt-4 text-gray-500 dark:text-gray-400">
-              Don’t have an account?{' '}
-              <a href="#" className="font-semibold text-blue-500 hover:underline">
-                Create Account
-              </a>
+              {isloginForm?"Don’t have an account?":"Existing User?"}{' '}
+              <button onClick={()=>setIsLoginForm((value)=>!value)} className="font-semibold text-blue-500 hover:underline">
+                {isloginForm?"Create Account": "Login"}
+              </button>
             </p>
           </div>
         </div>

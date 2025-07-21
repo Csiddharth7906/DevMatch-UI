@@ -1,20 +1,22 @@
+import axios from "axios";
 import React from "react";
+import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { removeUserFromFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user }) => {
+  const dispatch = useDispatch();
+
+  const handleSendRequest = async (status,userId) => {
+    try{
+         const res = await axios.post(BASE_URL+"/request/send/"+status+"/"+userId,{},{withCredentials:true});
+          dispatch(removeUserFromFeed(userId));
+    }catch(err){
+
+    }
+  };
   // Check if user data exists
-  if (!user) {
-    return (
-      <div className="max-w-4xl w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl overflow-hidden p-12">
-        <div className="text-center text-white">
-          <div className="w-16 h-16 bg-gray-500/30 rounded-full mx-auto mb-4 flex items-center justify-center">
-            <span className="text-2xl">👤</span>
-          </div>
-          <h2 className="text-xl font-semibold mb-2">No User Data</h2>
-          <p className="text-gray-400">User information is not available</p>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
     <div >
@@ -88,14 +90,14 @@ const UserCard = ({ user }) => {
 
             {/* Action Buttons */}
             <div className="flex gap-3 md:gap-4">
-              <button className="group flex-1 bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-400/30 text-red-300 py-3 md:py-4 px-4 md:px-6 rounded-xl hover:from-red-500 hover:to-pink-500 hover:text-white hover:border-red-300 transition-all duration-300 font-medium text-sm md:text-base hover:shadow-lg hover:shadow-red-500/25 hover:scale-[1.02]">
+              <button onClick={()=>handleSendRequest("ignored",user._id)} className="group flex-1 bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-400/30 text-red-300 py-3 md:py-4 px-4 md:px-6 rounded-xl hover:from-red-500 hover:to-pink-500 hover:text-white hover:border-red-300 transition-all duration-300 font-medium text-sm md:text-base hover:shadow-lg hover:shadow-red-500/25 hover:scale-[1.02]">
                 <span className="flex items-center justify-center gap-2">
                   <span className="text-lg group-hover:animate-pulse">×</span>
                   Pass
                 </span>
               </button>
               
-              <button className="group flex-1 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30 text-green-300 py-3 md:py-4 px-4 md:px-6 rounded-xl hover:from-green-500 hover:to-emerald-500 hover:text-white hover:border-green-300 transition-all duration-300 font-medium text-sm md:text-base hover:shadow-lg hover:shadow-green-500/25 hover:scale-[1.02]">
+              <button onClick={()=>handleSendRequest("interested",user._id)} className="group flex-1 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30 text-green-300 py-3 md:py-4 px-4 md:px-6 rounded-xl hover:from-green-500 hover:to-emerald-500 hover:text-white hover:border-green-300 transition-all duration-300 font-medium text-sm md:text-base hover:shadow-lg hover:shadow-green-500/25 hover:scale-[1.02]">
                 <span className="flex items-center justify-center gap-2">
                   <span className="text-lg group-hover:animate-pulse">♥</span>
                   Like
