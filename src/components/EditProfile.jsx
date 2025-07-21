@@ -33,7 +33,7 @@ const EditProfile = ({user}) => {
            },{withCredentials:true,})
            dispatch(addUser(res?.data?.data));
         //    toast.success("Product Added Successfully! ^^");
-       toast.success('🦄 Wow so easy!', {
+       toast.success('Profile Updated', {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: true,
@@ -65,8 +65,22 @@ const EditProfile = ({user}) => {
 
 
     return (
+
         
-        <div className="edit-profile container p-10 flex  ">
+        <div className="edit-profile container p-10 flex  justify-center">
+                          <ToastContainer
+                                position="top-center"
+                                autoClose={5000}
+                                hideProgressBar
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="dark"
+                                transition={Bounce}
+                                />
             <div className="max-w-lg min-h-screen mx-auto">
                 <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50">
                     {/* Header */}
@@ -78,7 +92,7 @@ const EditProfile = ({user}) => {
                     <div className="p-4 space-y-4">
                         {/* Profile Photo */}
                         <div className="text-center">
-                            {/* <div className="relative inline-block">
+                            <div className="relative inline-block sm:hidden">
                                 <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-purple-600 flex items-center justify-center overflow-hidden">
                                     {photoUrl ? (
                                         <img src={photoUrl} alt="Profile" className="w-full h-full object-cover" />
@@ -93,7 +107,7 @@ const EditProfile = ({user}) => {
                                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                     </svg>
                                 </button>
-                            </div> */}
+                            </div>
                             <input
                                 type="url"
                                 value={photoUrl}
@@ -232,25 +246,13 @@ const EditProfile = ({user}) => {
                                 <span>♥</span>
                                 <span>Save</span>
                             </button>
-                            <ToastContainer
-                                position="top-center"
-                                autoClose={5000}
-                                hideProgressBar
-                                newestOnTop={false}
-                                closeOnClick
-                                rtl={false}
-                                pauseOnFocusLoss
-                                draggable
-                                pauseOnHover
-                                theme="dark"
-                                transition={Bounce}
-                                />
+                           
                         </div>
                     </div>
                     
                 </div>
             </div>
-            <div className='my-30 ml-10 '>
+            <div className='my-30 ml-10  hidden lg:block my-30 ml-10'>
 
             <UserCard user={{firstName,lastName,photoUrl,age,gender,about,skills}} showButtons={false}   />
             </div>

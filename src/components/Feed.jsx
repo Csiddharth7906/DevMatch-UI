@@ -31,7 +31,7 @@ const Feed = () => {
 
   return (
     feed && (
-      <div className="flex justify-center my-30">
+      <div className="flex justify-center mt-20 mr-8 scale-100 mx-auto min-h-screen">
         <UserCard user={feed[1]} showButtons={true} />
       </div>
     )
