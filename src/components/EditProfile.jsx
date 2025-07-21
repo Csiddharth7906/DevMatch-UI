@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { ToastContainer , toast , Bounce} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = ({user}) => {
     // State variables for user profile fields
@@ -18,6 +19,7 @@ const EditProfile = ({user}) => {
     const [skills, setSkills] = useState(user.skills || []);
     const [error, setError] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSave = async() => {
         try{
@@ -44,6 +46,9 @@ const EditProfile = ({user}) => {
             theme: "dark",
             transition: Bounce,
             });
+            navigate("/");
+            window.location.reload()
+
         
         }
         catch (err) {

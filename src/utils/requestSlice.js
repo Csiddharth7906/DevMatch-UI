@@ -10,8 +10,8 @@ const requestSlice = createSlice({
         },
 
         removeRequest: (state, action) => {
-            const newArray = state.filter(request => request._id !== action.payload._id);
-            return newArray.length > 0 ? newArray : null; // Return null if no requests left 
+            const newArray = state.filter(request => request._id !== action.payload);
+            return newArray; // Return null if no requests left 
         }
     }
 

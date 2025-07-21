@@ -13,7 +13,7 @@ const Requests = () => {
             const res = axios.post(BASE_URL + "/request/review/"+status+"/"+_id,{}, {withCredentials:true})
             dispatch(removeRequest(_id));
         }catch(err){
-
+          console.log(err.message)
         }
     }
     const fetchRequests = async () => {
