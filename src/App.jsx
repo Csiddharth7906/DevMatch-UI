@@ -8,6 +8,7 @@ import Feed from './components/Feed'
 import Connection from './components/Connection'
 import Requests from './components/Requests'
 import LandingPage from './components/LandingPage'
+import Chat from './components/Chat'
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
          <Route path='profile' element={<Profile />} />
          <Route path='connection' element={<Connection />} />
          <Route path="request" element={<Requests />} />
+         <Route path="chat" element={<Chat />} />
       </Route>
       </Routes>
     </>

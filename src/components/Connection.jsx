@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { BASE_URL } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { addConnection } from '../utils/connectionSlice';
+import { Link } from 'react-router-dom';
 
 const Connection = () => {
     const dispatch = useDispatch();
@@ -139,9 +140,9 @@ const Connection = () => {
                                         )}
                                     </div>
                                     
-                                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-200 flex-shrink-0">
+                                    <Link to="/chat" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-200 flex-shrink-0">
                                         Chat
-                                    </button>
+                                    </Link >
                                 </div>
                             </div>
                         );
