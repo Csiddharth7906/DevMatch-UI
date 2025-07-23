@@ -25,6 +25,7 @@ const Navbar = () => {
   };
 
   return (
+    
     <div className="navbar bg-[#1e1e1e] shadow-sm sticky top-0 z-50 text-white">
       <div className="flex-1">
         <Link

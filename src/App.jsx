@@ -7,6 +7,7 @@ import Profile from './components/Profile'
 import Feed from './components/Feed'
 import Connection from './components/Connection'
 import Requests from './components/Requests'
+import LandingPage from './components/LandingPage'
 
 
 const App = () => {
@@ -14,8 +15,9 @@ const App = () => {
     <>
      
       <Routes>
-      <Route path="/" element={<Body/>} >
+      <Route path="landingPage" element={<LandingPage />} />
          <Route path='login' element={<Login />} />
+      <Route path="/" element={<Body/>} >
          <Route path='/' element={<Feed />} />
          <Route path='profile' element={<Profile />} />
          <Route path='connection' element={<Connection />} />

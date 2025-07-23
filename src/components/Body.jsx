@@ -23,13 +23,11 @@ const Body = () => {
    
       dispatch(addUser(res.data));
      }catch (error) {
-     if (error.status === 401) {
-       navigate("/login");
-     } 
-     console.error("Error fetching user data:", error);
-      
-
-     }
+  if (error.response && error.response.status === 401) {
+    navigate("/landingPage");
+  }
+  console.error("Error fetching user data:", error);
+}
   };
   useEffect(() => {
     
@@ -40,7 +38,7 @@ const Body = () => {
     <div className='bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen text-white'>
        <Navbar />
         <Outlet />  
-        <Footer />
+        {/* <Footer /> */}
     </div>
   )
 }
