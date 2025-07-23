@@ -73,7 +73,7 @@ const EditProfile = ({user}) => {
 
         
         <div className="edit-profile container p-10 flex  justify-center relative">
-             <Link to="/feed" className="px-4 md:py-2 rounded-full absolute top-2 md:top-10 text-white font-medium bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
+             <Link to="/" className="px-4 md:py-2 rounded-full absolute top-2 md:top-10 text-white font-medium bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
                     Go to Feed
                  </Link>
                           <ToastContainer
@@ -260,7 +260,7 @@ const EditProfile = ({user}) => {
                     
                 </div>
             </div>
-            <div className='my-30 ml-10  hidden lg:block my-30 ml-10'>
+            <div className=' hidden lg:block my-30 ml-10'>
 
             <UserCard user={{firstName,lastName,photoUrl,age,gender,about,skills}} showButtons={false}   />
             </div>
