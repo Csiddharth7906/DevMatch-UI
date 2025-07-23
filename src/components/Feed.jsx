@@ -51,6 +51,7 @@ const Feed = () => {
             </div>
             <h2 className="text-xl font-semibold mb-2">No User Data</h2>
             <p className="text-gray-400">User information is not available</p>
+        <button className="bg-red-500 p-2 mt-2 font-black rounded-2xl" onClick={()=>window.location.reload()}>Click to load more</button>
           </div>
         </div>
       </div>

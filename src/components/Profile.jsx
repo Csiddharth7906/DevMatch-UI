@@ -7,6 +7,7 @@ const Profile = () => {
   return user &&(
     <div className="profile container min-h-screen flex items-center justify-center">
       <EditProfile user={user} />
+      
     </div>
   )
 }

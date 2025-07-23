@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { ToastContainer , toast , Bounce} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const EditProfile = ({user}) => {
     // State variables for user profile fields
@@ -72,7 +72,10 @@ const EditProfile = ({user}) => {
     return (
 
         
-        <div className="edit-profile container p-10 flex  justify-center">
+        <div className="edit-profile container p-10 flex  justify-center relative">
+             <Link to="/feed" className="px-4 md:py-2 rounded-full absolute top-2 md:top-10 text-white font-medium bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
+                    Go to Feed
+                 </Link>
                           <ToastContainer
                                 position="top-center"
                                 autoClose={5000}
@@ -261,6 +264,7 @@ const EditProfile = ({user}) => {
 
             <UserCard user={{firstName,lastName,photoUrl,age,gender,about,skills}} showButtons={false}   />
             </div>
+           
         </div>
     )
 }
