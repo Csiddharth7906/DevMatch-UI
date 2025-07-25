@@ -96,7 +96,7 @@ const Connection = () => {
                 {/* Mobile List Layout */}
                 <div className=" space-y-3">
                     {connections.map((connection, index) => {
-                        const {firstName, lastName, photoUrl, age, gender, about, skills} = connection;
+                        const {_id,firstName, lastName, photoUrl, age, gender, about, skills} = connection;
                         return (
                             <div key={index} className="bg-slate-700/50 backdrop-blur-sm rounded-xl p-4 border border-slate-600/30">
                                 <div className="flex items-center space-x-4">
@@ -140,7 +140,7 @@ const Connection = () => {
                                         )}
                                     </div>
                                     
-                                    <Link to="/chat" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-200 flex-shrink-0">
+                                    <Link to={"/chat/"+_id } className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-200 flex-shrink-0">
                                         Chat
                                     </Link >
                                 </div>
