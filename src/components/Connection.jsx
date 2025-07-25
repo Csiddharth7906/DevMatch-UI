@@ -15,7 +15,7 @@ const Connection = () => {
             });
             dispatch(addConnection(res?.data?.data));
             // Handle the response data as needed
-            console.log(res?.data?.data);// This will log the connections data
+            
         }catch (error) {
            // Handle error
         }
