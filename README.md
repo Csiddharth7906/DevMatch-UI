@@ -1,12 +1,113 @@
-# React + Vite
+ 💻 DevMatch - Frontend (React + Redux)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+DevMatch is a developer matchmaking platform designed to connect coders, collaborators, and creators. This is the frontend built using **React**, **Redux Toolkit**, and **Tailwind CSS**, with real-time features like **chat messaging**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- ⚛️ **React.js** – Modern UI components
+- 🧠 **Redux Toolkit** – Scalable global state
+- 💬 **WebSocket (socket.io)** – Real-time chat support
+- 💨 **Tailwind CSS** – Utility-first styling
+- 🌐 **Axios** – API calls
+- 🧭 **React Router DOM** – Client-side routing
+- ⚡ **Vite** – Fast dev server + build tool
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🌐 Live Demo
+
+🔗 [https://dev-match-ui-o51l.vercel.app](https://dev-match-ui-o51l.vercel.app)
+
+---
+
+## 📸 Screenshots
+
+### 🖥️ Landing Page
+![Landing Page](./public/image1.png)
+
+### 👤 Profile Setup
+![Profile Setup](./public/image2.png)
+### 📰 Feed Page (Suggested Matches)
+![Feed](./public/feed.png)
+### 📨 Requests (Incoming & Sent Requests)
+![Requests](./public/requests.png)
+
+### 🔗 Connections (People You've Matched With)
+![Connections](./public/connections.png)
+
+### 💬 Chat Interface
+![Chat](./public/image3.png)
+
+
+
+---
+
+## 📁 Project Structure
+src/
+├── components/
+│   ├── Body.jsx
+│   ├── Chat.jsx
+│   ├── Connection.jsx
+│   ├── EditProfile.jsx
+│   ├── Feed.jsx
+│   ├── Footer.jsx
+│   ├── LandingPage.jsx
+│   ├── Login.jsx
+│   ├── Navbar.jsx
+│   ├── Profile.jsx
+│   ├── Requests.jsx
+│   └── UserCard.jsx
+├── utils/
+│   ├── appStore.js
+│   ├── connectionSlice.js
+│   ├── constants.js
+│   ├── feedSlice.js
+│   ├── requestSlice.js
+│   ├── socket.js
+│   └── userSlice.js
+├── App.jsx
+├── index.css
+└── main.jsx
+
+## 🛠️ Setup Instructions
+
+```bash
+# Clone the repository
+git clone https://github.com/Csiddharth7906/DevMatch-UI.git
+
+# Move into the project directory
+cd DevMatch-UI
+
+# Install dependencies
+npm install
+
+# Run the app locally
+npm run dev
+##💡 Features
+🔐 User Authentication (Login/Register)
+
+🧑‍💻 Developer Profile Setup
+
+🧠 Redux-managed State
+
+🤝 Matchmaking Suggestions
+
+💬 Real-Time Chat with socket.io
+
+🌙 Dark Mode UI (optional)
+
+📱 Fully Responsive for Mobile/Desktop
+
+🚧 Future Additions
+📊 User Analytics Dashboard
+
+🔔 Notification System
+
+🧭 Match Filters (by skill, city, etc.)
+
+🏆 Premium User Features
+👨‍💻 Author
+Siddharth Chauhan
+📧 siddharthchauhan7906@gmail.com
