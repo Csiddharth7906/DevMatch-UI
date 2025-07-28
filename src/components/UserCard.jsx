@@ -16,7 +16,7 @@ const UserCard = ({ user }) => {
 
     }
   };
-  // Check if user data exists
+
 
 
   return (
@@ -40,14 +40,14 @@ const UserCard = ({ user }) => {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-blue-900/20" />
             
-            {/* Floating elements */}
+           
             <div className="absolute top-4 right-4 w-3 h-3 bg-green-400 rounded-full animate-pulse" />
             <div className="absolute bottom-4 left-4 w-2 h-2 bg-yellow-400 rounded-full animate-bounce" />
           </div>
 
-          {/* Content Section */}
+         
           <div className="flex-1 p-4 md:p-8 text-white">
-            {/* Header */}
+            
             <div className="mb-3 md:mb-4">
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
@@ -62,14 +62,14 @@ const UserCard = ({ user }) => {
               </div>
             </div>
 
-            {/* About */}
+  
             <div className="mb-4 md:mb-5">
               <p className="text-gray-300 text-sm md:text-base leading-relaxed">
                 {user.about || "No description available."}
               </p>
             </div>
 
-            {/* Skills */}
+         
             <div className="mb-4 md:mb-6">
                               <h3 className="text-sm md:text-base font-semibold text-purple-200 mb-2 md:mb-4">Skills & Tech</h3>
                               <div className="flex flex-wrap gap-2 md:gap-3">
@@ -89,7 +89,7 @@ const UserCard = ({ user }) => {
               </div>
             </div>
 
-            {/* Action Buttons */}
+         
             <div className="flex gap-3 md:gap-4">
               <button onClick={()=>handleSendRequest("ignored",user._id)} className="group flex-1 bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-400/30 text-red-300 py-3 md:py-4 px-4 md:px-6 rounded-xl hover:from-red-500 hover:to-pink-500 hover:text-white hover:border-red-300 transition-all duration-300 font-medium text-sm md:text-base hover:shadow-lg hover:shadow-red-500/25 hover:scale-[1.02]">
                 <span className="flex items-center justify-center gap-2">
