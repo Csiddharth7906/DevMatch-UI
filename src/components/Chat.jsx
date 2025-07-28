@@ -73,7 +73,7 @@ const Chat = () => {
                     </div>
                 </div>
 
-                {/* Messages Area */}
+           
                 <div className='h-96 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-slate-900/50 to-purple-900/30'>
                     {message.map((msg, index) => (
                         <div key={index} className={"flex flex-col mb-6 " + (user.firstName === msg.firstName ? "items-end" : "items-start")}>
@@ -99,7 +99,7 @@ const Chat = () => {
                     <div ref={messagesEndRef} />
                 </div>
 
-                {/* Message Input */}
+               
                 <div className='border-t border-white/10 p-6 bg-gradient-to-r from-purple-600/10 to-blue-600/10'>
                     <div className='flex items-center space-x-4'>
                         <input
