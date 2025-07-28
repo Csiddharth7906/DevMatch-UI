@@ -43,7 +43,8 @@ const Feed = () => {
   // Show "No User Data" when feed exists but is empty
   if (!feed || feed.length <= 0) {
     return (
-      <div className="flex justify-center mt-20 mr-8 scale-100 mx-auto">
+
+      <div className="flex justify-center ml-10 md:ml-0  mt-20 mr-8 scale-100 mx-auto">
         <div className="max-w-4xl w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl overflow-hidden p-12">
           <div className="text-center text-white">
             <div className="w-16 h-16 bg-gray-500/30 rounded-full mx-auto mb-4 flex items-center justify-center">
