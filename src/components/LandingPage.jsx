@@ -45,7 +45,6 @@ const LandingPage = () => {
           ))}
         </div>
 
-        {/* Grid Pattern */}
         <div 
           className="absolute inset-0 opacity-10"
           style={{
@@ -57,12 +56,12 @@ const LandingPage = () => {
           }}
         ></div>
 
-        {/* Glowing Orbs */}
+      
         <div className="absolute top-20 left-20 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
-        {/* Mouse follower effect */}
+       
         <div 
           className="absolute w-96 h-96 bg-gradient-radial from-blue-500/5 to-transparent rounded-full pointer-events-none transition-all duration-300 ease-out"
           style={{
@@ -72,9 +71,9 @@ const LandingPage = () => {
         ></div>
       </div>
 
-      {/* Content */}
+     
       <div className="relative z-10">
-        {/* Header */}
+       
         <header className="bg-gray-900/80 backdrop-blur-lg border-b border-gray-700/50">
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">
             <Link
@@ -99,7 +98,7 @@ const LandingPage = () => {
           </div>
         </header>
 
-        {/* Hero Section */}
+       
         <section className="container mx-auto px-4 py-20 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in-up">
@@ -131,7 +130,7 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* Features Section */}
+      
         <section className="container mx-auto px-4 py-16">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4 animate-fade-in-up">Why Choose DevMatch</h2>
@@ -195,7 +194,7 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
+        
         <section className="bg-gray-900/80 backdrop-blur-lg border-t border-gray-700/50 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-pink-600/5"></div>
           <div className="container mx-auto px-4 py-16 text-center relative z-10">
@@ -224,7 +223,7 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* Footer */}
+        
         <footer className="bg-gray-950/90 backdrop-blur-lg border-t border-gray-700/50">
           <div className="container mx-auto px-4 py-8 text-center">
             <p className="text-gray-400">
