@@ -14,10 +14,10 @@ const Connection = () => {
                 withCredentials: true
             });
             dispatch(addConnection(res?.data?.data));
-            // Handle the response data as needed
+           
             
         }catch (error) {
-           // Handle error
+           
         }
     }
     useState(()=>{
@@ -37,63 +37,8 @@ const Connection = () => {
                     Your Connections
                 </h1>
                 
-                {/* Desktop Grid Layout */}
-                {/* <div className="md:hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {connections.map((connection, index) => {
-                        const {firstName, lastName, photoUrl, age, gender, about, skills} = connection;
-                        return (
-                            <div key={index} className="bg-slate-700/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-600/30 hover:border-blue-400/50 transition-all duration-300 hover:scale-105">
-                                <div className="flex flex-col items-center">
-                                    <div className="relative mb-4">
-                                        <img 
-                                            src={photoUrl || '/api/placeholder/120/120'} 
-                                            alt={`${firstName} ${lastName}`}
-                                            className="w-24 h-24 rounded-full object-cover bg-slate-600"
-                                            onError={(e) => {
-                                                e.target.src = '/api/placeholder/120/120';
-                                            }}
-                                        />
-                                    </div>
-                                    
-                                    <h3 className="text-xl font-semibold text-white mb-2">
-                                        {firstName} {lastName}
-                                    </h3>
-                                    
-                                    <div className="text-slate-300 text-sm mb-3">
-                                        {age && `Age: ${age}`} {age && gender && "|"} {gender && `Gender: ${gender}`}
-                                    </div>
-                                    
-                                    {about && (
-                                        <p className="text-slate-400 text-sm text-center mb-4 line-clamp-3">
-                                            {about}
-                                        </p>
-                                    )}
-                                    
-                                    {skills && skills.length > 0 && (
-                                        <div className="flex flex-wrap gap-2 justify-center">
-                                            {skills.slice(0, 3).map((skill, skillIndex) => (
-                                                <span key={skillIndex} className="px-3 py-1 bg-blue-600/30 text-blue-300 rounded-full text-xs">
-                                                    {skill}
-                                                </span>
-                                            ))}
-                                            {skills.length > 3 && (
-                                                <span className="px-3 py-1 bg-slate-600/50 text-slate-300 rounded-full text-xs">
-                                                    +{skills.length - 3} more
-                                                </span>
-                                            )}
-                                        </div>
-                                    )}
-                                    
-                                    <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors duration-200">
-                                        Chat
-                                    </button>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-                 */}
-                {/* Mobile List Layout */}
+            
+
                 <div className=" space-y-3">
                     {connections.map((connection, index) => {
                         const {_id,firstName, lastName, photoUrl, age, gender, about, skills} = connection;
