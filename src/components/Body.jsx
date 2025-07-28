@@ -14,7 +14,7 @@ const Body = () => {
   // Function to fetch user data
   const fetchUser = async () =>{
     if (userData) {
-      return; // If user data is already present, no need to fetch again
+      return; 
     }
      try{ 
       const res = await axios.get(BASE_URL+'/profile/view', {
