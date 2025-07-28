@@ -31,7 +31,7 @@ const Feed = () => {
     getFeed();
   }, []);
 
-  // Show loading state while fetching data
+  
   if (isLoading) {
     return (
       <div className="flex justify-center mt-20 mr-8 scale-100 mx-auto">
@@ -40,7 +40,7 @@ const Feed = () => {
     );
   }
 
-  // Show "No User Data" when feed exists but is empty
+  
   if (!feed || feed.length <= 0) {
     return (
 
@@ -59,7 +59,7 @@ const Feed = () => {
     );
   }
 
-  // Show feed data when available
+
   return (
     <div className="flex justify-center mt-20 mr-8 scale-100 mx-auto min-h-screen">
       <UserCard user={feed[0]} showButtons={true} />
