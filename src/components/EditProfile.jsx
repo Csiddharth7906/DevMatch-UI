@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const EditProfile = ({user}) => {
-    // State variables for user profile fields
+   
     const [firstName, setFirstName] = useState(user.firstName || '');
     const [lastName, setLastName] = useState(user.lastName || '');
     const [photoUrl, setPhotoUrl] = useState(user.photoUrl || '');
@@ -34,7 +34,7 @@ const EditProfile = ({user}) => {
             skills
            },{withCredentials:true,})
            dispatch(addUser(res?.data?.data));
-        //    toast.success("Product Added Successfully! ^^");
+       
        toast.success('Profile Updated', {
             position: "top-center",
             autoClose: 5000,
@@ -91,12 +91,12 @@ const EditProfile = ({user}) => {
                                 />
             <div className="max-w-lg min-h-screen mx-auto">
                 <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50">
-                    {/* Header */}
+                   
                     <div className="p-4 border-b border-slate-700/50">
                         <h1 className="text-lg font-bold text-white text-center">Edit Profile</h1>
                     </div>
 
-                    {/* Content */}
+           
                     <div className="p-4 space-y-4">
                         {/* Profile Photo */}
                         <div className="text-center">
@@ -125,7 +125,7 @@ const EditProfile = ({user}) => {
                             />
                         </div>
 
-                        {/* Name Fields */}
+                       
                         <div className="grid grid-cols-2 gap-3">
                             <div>
                                 <label className="block text-xs font-medium text-gray-300 mb-1">First Name</label>
@@ -149,7 +149,7 @@ const EditProfile = ({user}) => {
                             </div>
                         </div>
 
-                        {/* Age and Gender */}
+                      
                         <div className="grid grid-cols-2 gap-3">
                             <div>
                                 <label className="block text-xs font-medium text-gray-300 mb-1">Age</label>
@@ -179,7 +179,7 @@ const EditProfile = ({user}) => {
                             </div>
                         </div>
 
-                        {/* About Section */}
+                    
                         <div>
                             <label className="block text-xs font-medium text-gray-300 mb-1">About Me</label>
                             <textarea
@@ -193,11 +193,11 @@ const EditProfile = ({user}) => {
                             <p className="text-xs text-gray-500 mt-1">{about.length}/200</p>
                         </div>
 
-                      {/* Skills Section */}
+                     
                     <div>
                     <label className="block text-xs font-medium text-gray-300 mb-1">Skills & Tech</label>
 
-                    {/* Input to Add Skills */}
+                    
                     <input
                         type="text"
                         placeholder="Type a skill and press Enter"
@@ -213,7 +213,7 @@ const EditProfile = ({user}) => {
                         className="w-full px-3 py-2 mb-2 bg-slate-700/50 border border-slate-600 rounded-lg text-white text-sm placeholder-gray-400 focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
                     />
 
-                    {/* Display Skills with Remove Option */}
+                    
                     {skills.length === 0 ? (
                         <div className="text-gray-400 text-xs italic bg-slate-700/30 px-3 py-2 rounded-lg">
                         No skills added yet
@@ -242,7 +242,7 @@ const EditProfile = ({user}) => {
                     </div>
                     </div>
 
-                    {/* Action Buttons */}
+                   
                     <div className="p-4 border-t border-slate-700/50">
                     <p className="text-red-500">{error}</p>
                         <div className="grid grid-cols-2 gap-3">
