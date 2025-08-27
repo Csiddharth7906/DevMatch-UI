@@ -1,108 +1,181 @@
 import axios from "axios";
-import React from "react";
+import React, { useState, useRef } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user }) => {
   const dispatch = useDispatch();
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const cardRef = useRef(null);
 
-  const handleSendRequest = async (status,userId) => {
-    try{
-         const res = await axios.post(BASE_URL+"/request/send/"+status+"/"+userId,{},{withCredentials:true});
-          dispatch(removeUserFromFeed(userId));
-          
-    }catch(err){
-
+  const handleSendRequest = async (status, userId) => {
+    try {
+      await axios.post(BASE_URL + "/request/send/" + status + "/" + userId, {}, { withCredentials: true });
+      dispatch(removeUserFromFeed(userId));
+    } catch (err) {
+      console.error("Request failed:", err);
     }
   };
 
+  const handleStart = (clientX, clientY) => {
+    setIsDragging(true);
+    setDragStart({ x: clientX, y: clientY });
+    setDragOffset({ x: 0, y: 0 });
+  };
 
+  const handleMove = (clientX, clientY) => {
+    if (!isDragging) return;
+    
+    const deltaX = clientX - dragStart.x;
+    const deltaY = clientY - dragStart.y;
+    setDragOffset({ x: deltaX, y: deltaY });
+  };
+
+  const handleEnd = () => {
+    if (!isDragging) return;
+    
+    const threshold = 100;
+    
+    if (Math.abs(dragOffset.x) > threshold) {
+      if (dragOffset.x > 0) {
+        // Swiped right - Like
+        handleSendRequest("interested", user._id);
+      } else {
+        // Swiped left - Pass
+        handleSendRequest("ignored", user._id);
+      }
+    }
+    
+    // Reset
+    setIsDragging(false);
+    setDragOffset({ x: 0, y: 0 });
+  };
+
+  // Mouse events
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    handleStart(e.clientX, e.clientY);
+    
+    const handleMouseMoveGlobal = (e) => handleMove(e.clientX, e.clientY);
+    const handleMouseUpGlobal = () => {
+      handleEnd();
+      document.removeEventListener('mousemove', handleMouseMoveGlobal);
+      document.removeEventListener('mouseup', handleMouseUpGlobal);
+    };
+    
+    document.addEventListener('mousemove', handleMouseMoveGlobal);
+    document.addEventListener('mouseup', handleMouseUpGlobal);
+  };
+
+  // Touch events
+  const handleTouchStart = (e) => {
+    const touch = e.touches[0];
+    handleStart(touch.clientX, touch.clientY);
+  };
+  
+  const handleTouchMove = (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    handleMove(touch.clientX, touch.clientY);
+  };
+  
+  const handleTouchEnd = (e) => {
+    e.preventDefault();
+    handleEnd();
+  };
+
+  const rotation = dragOffset.x * 0.1;
+  const opacity = 1 - Math.abs(dragOffset.x) * 0.002;
 
   return (
-    <div >
-      <div className="max-w-5xl w-full mx-4 md:mx-0 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-xl rounded-2xl md:rounded-3xl border border-white/20 shadow-2xl overflow-hidden hover:shadow-purple-500/25 hover:shadow-2xl transition-all duration-500 hover:scale-[1.01]">
-        <div className="flex flex-col md:flex-row">
-          {/* Profile Image Section */}
-          <div className="relative md:w-80 w-full h-64 md:h-auto overflow-hidden">
+    <div className="max-w-sm mx-auto">
+      <div 
+        ref={cardRef}
+        className="bg-gray-800 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 cursor-grab active:cursor-grabbing select-none"
+        style={{
+          transform: `translateX(${dragOffset.x}px) translateY(${dragOffset.y * 0.1}px) rotate(${rotation}deg)`,
+          opacity: opacity,
+          transition: isDragging ? 'none' : 'all 0.3s ease'
+        }}
+        onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        
+        {/* Swipe Indicators */}
+        {isDragging && (
+          <>
             <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ 
-                backgroundImage: user.photoUrl 
-                  ? `url(${user.photoUrl})` 
-                  : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-              }}
-            />
-            {!user.photoUrl && (
-              <div className="absolute inset-0 flex items-center justify-center">
+              className={`absolute top-8 left-8 z-10 px-4 py-2 rounded-lg font-bold text-lg transition-opacity ${
+                dragOffset.x < -50 ? 'opacity-100 bg-red-500 text-white' : 'opacity-30 bg-gray-600 text-gray-300'
+              }`}
+            >
+              PASS
+            </div>
+            <div 
+              className={`absolute top-8 right-8 z-10 px-4 py-2 rounded-lg font-bold text-lg transition-opacity ${
+                dragOffset.x > 50 ? 'opacity-100 bg-green-500 text-white' : 'opacity-30 bg-gray-600 text-gray-300'
+              }`}
+            >
+              LIKE
+            </div>
+          </>
+        )}
+        
+        {/* Profile Image */}
+        <div className="relative">
+          <div className="h-80 bg-gradient-to-b from-gray-300 to-gray-400 overflow-hidden">
+            {user.photoUrl ? (
+              <img 
+                src={user.photoUrl} 
+                alt={user.firstName}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-gray-400 to-gray-500 flex items-center justify-center">
                 <span className="text-6xl text-white/70">👤</span>
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-transparent to-blue-900/20" />
-            
-           
-            <div className="absolute top-4 right-4 w-3 h-3 bg-green-400 rounded-full animate-pulse" />
-            <div className="absolute bottom-4 left-4 w-2 h-2 bg-yellow-400 rounded-full animate-bounce" />
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 text-white">
+          
+          {/* Name and Verification */}
+          <div className="flex items-center gap-2 mb-2">
+            <h2 className="text-xl font-semibold">
+              {user.firstName || "Unknown"} {user.lastName || "User"}
+            </h2>
+            <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+              <span className="text-white text-xs">✓</span>
+            </div>
           </div>
 
-         
-          <div className="flex-1 p-4 md:p-8 text-white">
-            
-            <div className="mb-3 md:mb-4">
-              <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-                  {user.firstName || "Unknown"} {user.lastName || "User"}
-                </h1>
-                <div className="flex items-center gap-1 text-sm md:text-base text-purple-300 bg-purple-500/20 px-2 md:px-3 py-1 md:py-2 rounded-full">
-                  <span>●</span>
-                  <span className="capitalize">{user.gender || "N/A"}</span>
-                  <span>•</span>
-                  <span>{user.age || "N/A"}</span>
-                </div>
-              </div>
-            </div>
+          {/* Description */}
+          <p className="text-gray-300 text-sm mb-4 line-clamp-2">
+            {user.about || `${user.gender || "Developer"} who focuses on creating amazing experiences.`}
+          </p>
 
-  
-            <div className="mb-4 md:mb-5">
-              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-                {user.about || "No description available."}
-              </p>
-            </div>
-
-         
-            <div className="mb-4 md:mb-6">
-                              <h3 className="text-sm md:text-base font-semibold text-purple-200 mb-2 md:mb-4">Skills & Tech</h3>
-                              <div className="flex flex-wrap gap-2 md:gap-3">
-                {user.skills && user.skills.length > 0 ? (
-                  user.skills.map((skill, index) => (
-                    <span
-                      key={index}
-                      className="group relative text-xs md:text-sm font-medium bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-400/30 text-purple-100 px-2 md:px-4 py-1 md:py-2 rounded-lg hover:from-purple-500/40 hover:to-blue-500/40 hover:border-purple-300/50 transition-all duration-300 cursor-pointer hover:scale-105"
-                    >
-                      {skill}
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </span>
-                  ))
-                ) : (
-                  <span className="text-gray-400 text-sm md:text-base italic">No skills listed</span>
-                )}
-              </div>
-            </div>
-
-         
-            <div className="flex gap-3 md:gap-4">
-              <button onClick={()=>handleSendRequest("ignored",user._id)} className="group flex-1 bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-400/30 text-red-300 py-3 md:py-4 px-4 md:px-6 rounded-xl hover:from-red-500 hover:to-pink-500 hover:text-white hover:border-red-300 transition-all duration-300 font-medium text-sm md:text-base hover:shadow-lg hover:shadow-red-500/25 hover:scale-[1.02]">
-                <span className="flex items-center justify-center gap-2">
-                  <span className="text-lg group-hover:animate-pulse">×</span>
-                  Pass
-                </span>
+          {/* Stats and Action */}
+          <div className="flex items-center justify-end">
+            <div className="flex gap-2">
+              <button 
+                onClick={() => handleSendRequest("ignored", user._id)}
+                className="w-10 h-10 bg-gray-700 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors duration-200"
+              >
+                <span className="text-white">✕</span>
               </button>
               
-              <button onClick={()=>handleSendRequest("interested",user._id)} className="group flex-1 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30 text-green-300 py-3 md:py-4 px-4 md:px-6 rounded-xl hover:from-green-500 hover:to-emerald-500 hover:text-white hover:border-green-300 transition-all duration-300 font-medium text-sm md:text-base hover:shadow-lg hover:shadow-green-500/25 hover:scale-[1.02]">
-                <span className="flex items-center justify-center gap-2">
-                  <span className="text-lg group-hover:animate-pulse">♥</span>
-                  Like
-                </span>
+              <button 
+                onClick={() => handleSendRequest("interested", user._id)}
+                className="bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200"
+              >
+                Like ♥
               </button>
             </div>
           </div>
