@@ -25,7 +25,7 @@ const Requests = () => {
             
 
         }catch(err){
-            // Handle error
+            
            
         }
     }
@@ -46,75 +46,7 @@ const Requests = () => {
                     Request Recieved
                 </h1>
                 
-                {/* Desktop Grid Layout */}
-                {/* <div className="md:hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {requests.map((requests, index) => {
-                        const {_id,firstName, lastName, photoUrl, age, gender, about, skills} = requests.fromUserId;
-                        return (
-                            <div key={index} className="bg-slate-700/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-600/30 hover:border-blue-400/50 transition-all duration-300 hover:scale-105">
-                                <div className="flex flex-col items-center">
-                                    <div className="relative mb-4">
-                                        <img 
-                                            src={photoUrl || '/api/placeholder/120/120'} 
-                                            alt={`${firstName} ${lastName}`}
-                                            className="w-24 h-24 rounded-full object-cover bg-slate-600"
-                                            onError={(e) => {
-                                                e.target.src = '/api/placeholder/120/120';
-                                            }}
-                                        />
-                                    </div>
-                                    
-                                    <h3 className="text-xl font-semibold text-white mb-2">
-                                        {firstName} {lastName}
-                                    </h3>
-                                    
-                                    <div className="text-slate-300 text-sm mb-3">
-                                        {age && `Age: ${age}`} {age && gender && "|"} {gender && `Gender: ${gender}`}
-                                    </div>
-                                    
-                                    {about && (
-                                        <p className="text-slate-400 text-sm text-center mb-4 line-clamp-3">
-                                            {about}
-                                        </p>
-                                    )}
-                                    
-                                    {skills && skills.length > 0 && (
-                                        <div className="flex flex-wrap gap-2 justify-center">
-                                            {skills.slice(0, 3).map((skill, skillIndex) => (
-                                                <span key={skillIndex} className="px-3 py-1 bg-blue-600/30 text-blue-300 rounded-full text-xs">
-                                                    {skill}
-                                                </span>
-                                            ))}
-                                            {skills.length > 3 && (
-                                                <span className="px-3 py-1 bg-slate-600/50 text-slate-300 rounded-full text-xs">
-                                                    +{skills.length - 3} more
-                                                </span>
-                                            )}
-                                        </div>
-                                    )}
-                                    
-                                    <div className='flex gap-4 mt-4'>
-                                        <button onClick={()=> reviewRequests("rejected",requests._id)} className="group flex-1 bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-400/30 text-red-300 py-3 md:py-4 px-4 md:px-6 rounded-xl hover:from-red-500 hover:to-pink-500 hover:text-white hover:border-red-300 transition-all duration-300 font-medium text-sm md:text-base hover:shadow-lg hover:shadow-red-500/25 hover:scale-[1.02]">
-                                            <span className="flex items-center justify-center gap-2">
-                                            <span className="text-lg group-hover:animate-pulse">×</span>
-                                            Reject
-                                            </span>
-                                        </button>
-                                        
-                                        <button onClick={()=> reviewRequests("accepted",requests._id)} className="group flex-1 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30 text-green-300 py-3 md:py-4 px-4 md:px-6 rounded-xl hover:from-green-500 hover:to-emerald-500 hover:text-white hover:border-green-300 transition-all duration-300 font-medium text-sm md:text-base hover:shadow-lg hover:shadow-green-500/25 hover:scale-[1.02]">
-                                            <span className="flex items-center justify-center gap-2">
-                                            <span className="text-lg group-hover:animate-pulse">♥</span>
-                                            Accept
-                                            </span>
-                                        </button>
-                                        </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div> */}
-                
-                {/* Mobile List Layout */}
+             
                 <div className=" space-y-3">
                     {requests.map((requests, index) => {
                         const {firstName, lastName, photoUrl, age, gender, about, skills} = requests.fromUserId;

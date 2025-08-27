@@ -117,7 +117,7 @@ const Chat = () => {
                         <div className='w-4 h-4 bg-white rounded-sm flex items-center justify-center'>
                             <div className='w-2 h-2 bg-gray-800 rounded-sm'></div>
                         </div>
-                        <h1 className='font-medium'> Chat</h1>
+                        <h1 className='font-medium'>Simple Chat</h1>
                     </div>
                 </div>
 

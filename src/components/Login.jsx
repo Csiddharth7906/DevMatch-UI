@@ -16,7 +16,7 @@ const Login = () => {
     const dispatch = useDispatch();
 const navigate = useNavigate();
     
-    // Keep your original logic exactly the same
+    
     const handleLogin = async () => {
         try {
             
@@ -59,12 +59,12 @@ const navigate = useNavigate();
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden bg-black">
-            {/* Animated Background */}
+           
             <div className="absolute inset-0">
-                {/* Gradient Background */}
+               
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/30 to-pink-900/30"></div>
                 
-                {/* Floating Particles */}
+                
                 <div className="absolute inset-0">
                     {[...Array(30)].map((_, i) => (
                         <div
@@ -80,7 +80,7 @@ const navigate = useNavigate();
                     ))}
                 </div>
 
-                {/* Grid Pattern */}
+              
                 <div 
                     className="absolute inset-0 opacity-5"
                     style={{
@@ -92,12 +92,12 @@ const navigate = useNavigate();
                     }}
                 ></div>
 
-                {/* Glowing Orbs */}
+              
                 <div className="absolute top-10 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl animate-pulse"></div>
                 <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
                 <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-pink-600/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
-                {/* Mouse follower effect */}
+               
                 <div 
                     className="absolute w-80 h-80 rounded-full pointer-events-none transition-all duration-500 ease-out"
                     style={{
@@ -108,10 +108,10 @@ const navigate = useNavigate();
                 ></div>
             </div>
 
-            {/* Main Content */}
+           
             <div className="w-full max-w-4xl bg-gray-900/90 backdrop-blur-xl rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row border border-gray-700/50 relative z-10 animate-fade-in-up">
                 
-                {/* Image Section - Enhanced */}
+                
                 <div className="hidden md:block md:w-1/2 h-64 md:h-auto overflow-hidden bg-gray-900 relative group">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 z-10"></div>
                     <img
@@ -121,13 +121,13 @@ const navigate = useNavigate();
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent z-20"></div>
                     
-                    {/* Floating elements on image */}
+                   
                     <div className="absolute top-8 left-8 w-3 h-3 bg-blue-400 rounded-full opacity-60 animate-pulse z-30"></div>
                     <div className="absolute bottom-12 right-12 w-2 h-2 bg-purple-400 rounded-full opacity-60 animate-pulse z-30" style={{ animationDelay: '1s' }}></div>
                     <div className="absolute top-1/2 right-8 w-1 h-1 bg-pink-400 rounded-full opacity-60 animate-pulse z-30" style={{ animationDelay: '2s' }}></div>
                 </div>
 
-                {/* Form Section - Enhanced */}
+               
                 <div className="w-full md:w-1/2 p-8 sm:p-10 flex flex-col justify-center bg-gray-900/95 backdrop-blur-lg relative">
                     {/* Background decoration */}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-600/5 to-purple-600/5 rounded-full blur-2xl"></div>
@@ -261,75 +261,7 @@ const navigate = useNavigate();
                 </div>
             </div>
 
-            {/* <style jsx>{`
-                @keyframes float {
-                    0%, 100% { transform: translateY(0px) rotate(0deg); }
-                    33% { transform: translateY(-8px) rotate(120deg); }
-                    66% { transform: translateY(4px) rotate(240deg); }
-                }
-                
-                @keyframes fade-in-up {
-                    from {
-                        opacity: 0;
-                        transform: translateY(30px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-                
-                @keyframes slide-in-left {
-                    from {
-                        opacity: 0;
-                        transform: translateX(-30px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                }
-                
-                @keyframes slide-in-right {
-                    from {
-                        opacity: 0;
-                        transform: translateX(30px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                }
-                
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-                    20%, 40%, 60%, 80% { transform: translateX(2px); }
-                }
-                
-                .animate-float {
-                    animation: float linear infinite;
-                }
-                
-                .animate-fade-in-up {
-                    animation: fade-in-up 0.8s ease-out forwards;
-                    opacity: 0;
-                }
-                
-                .animate-slide-in-left {
-                    animation: slide-in-left 0.6s ease-out forwards;
-                    opacity: 0;
-                }
-                
-                .animate-slide-in-right {
-                    animation: slide-in-right 0.6s ease-out forwards;
-                    opacity: 0;
-                }
-                
-                .animate-shake {
-                    animation: shake 0.5s ease-in-out;
-                }
-            `}</style> */}
+         
         </div>
     );
 }
