@@ -3,9 +3,11 @@ import React, { useState, useRef } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
+import { useNavigate } from "react-router-dom";
 
 const UserCard = ({ user }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -31,6 +33,7 @@ const UserCard = ({ user }) => {
     
     const deltaX = clientX - dragStart.x;
     const deltaY = clientY - dragStart.y;
+    
     setDragOffset({ x: deltaX, y: deltaY });
   };
 
@@ -70,25 +73,35 @@ const UserCard = ({ user }) => {
     document.addEventListener('mouseup', handleMouseUpGlobal);
   };
 
-  // Touch events
+  // Touch events for swipe
   const handleTouchStart = (e) => {
     const touch = e.touches[0];
     handleStart(touch.clientX, touch.clientY);
   };
   
   const handleTouchMove = (e) => {
-    e.preventDefault();
     const touch = e.touches[0];
     handleMove(touch.clientX, touch.clientY);
   };
   
   const handleTouchEnd = (e) => {
-    e.preventDefault();
     handleEnd();
   };
 
   const rotation = dragOffset.x * 0.1;
   const opacity = 1 - Math.abs(dragOffset.x) * 0.002;
+  
+  const handleProfileClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(`/profile/${user._id}`);
+  };
+
+  const handleButtonClick = (action, userId) => (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleSendRequest(action, userId);
+  };
 
   return (
     <div className="max-w-sm mx-auto">
@@ -105,7 +118,6 @@ const UserCard = ({ user }) => {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        
         {/* Swipe Indicators */}
         {isDragging && (
           <>
@@ -148,7 +160,10 @@ const UserCard = ({ user }) => {
           
           {/* Name and Verification */}
           <div className="flex items-center gap-2 mb-2">
-            <h2 className="text-xl font-semibold cursor-pointer hover:text-blue-300" onClick={() => window.location.href = `/profile/${user._id}`}>
+            <h2 
+              className="text-xl font-semibold cursor-pointer hover:text-blue-300" 
+              onClick={handleProfileClick}
+            >
               {user.firstName || "Unknown"} {user.lastName || "User"}
             </h2>
             <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
@@ -209,23 +224,35 @@ const UserCard = ({ user }) => {
           {/* Stats and Action */}
           <div className="flex items-center justify-between">
             <button 
-              onClick={() => window.location.href = `/profile/${user._id}`}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium text-sm transition-colors duration-200"
+              onClick={handleProfileClick}
+              onTouchStart={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+              onTouchEnd={(e) => e.stopPropagation()}
+              onMouseDown={(e) => e.stopPropagation()}
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium text-sm transition-colors duration-200 relative z-10"
             >
               View Profile
             </button>
             
             <div className="flex gap-2">
               <button 
-                onClick={() => handleSendRequest("ignored", user._id)}
-                className="w-10 h-10 bg-gray-700 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors duration-200"
+                onClick={handleButtonClick("ignored", user._id)}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+                onMouseDown={(e) => e.stopPropagation()}
+                className="w-10 h-10 bg-gray-700 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors duration-200 relative z-10"
               >
                 <span className="text-white">✕</span>
               </button>
               
               <button 
-                onClick={() => handleSendRequest("interested", user._id)}
-                className="bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200"
+                onClick={handleButtonClick("interested", user._id)}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+                onMouseDown={(e) => e.stopPropagation()}
+                className="bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-full font-medium text-sm transition-colors duration-200 relative z-10"
               >
                 Like ♥
               </button>
