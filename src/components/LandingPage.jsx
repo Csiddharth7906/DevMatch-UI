@@ -1,18 +1,27 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Heart, Code2, Github, Linkedin, Twitter, ArrowRight, Play, Users, MessageCircle, Star, Zap, Coffee } from 'lucide-react';
+import { Heart, Code2, Github, Linkedin, Twitter, ArrowRight, Users, MessageCircle, Star, Rocket, Terminal, GitBranch } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DevMatchLanding = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const videoRef = useRef(null);
+  const heroRef = useRef(null);
+  const featuresRef = useRef(null);
+  const statsRef = useRef(null);
 const navigate = useNavigate();
-const handleLogin = () => {
+  const handleLogin = () => {
     navigate('/login', { state: { isLogin: true } });
+  };
+
+  const handleGetStarted = () => {
+    navigate('/login');
   };
 
 
@@ -21,7 +30,11 @@ const handleLogin = () => {
       setLoadingProgress(prev => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(() => setIsLoading(false), 500);
+          setTimeout(() => {
+            setIsLoading(false);
+            // Initialize GSAP animations after loading
+            initAnimations();
+          }, 500);
           return 100;
         }
         return prev + 2;
@@ -30,6 +43,155 @@ const handleLogin = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  const initAnimations = () => {
+    // Wait for DOM to be ready
+    gsap.set('*', { visibility: 'visible' });
+    
+    // Hero animations with existence check
+    if (document.querySelector('.hero-title')) {
+      gsap.fromTo('.hero-title', 
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', stagger: 0.15 }
+      );
+    }
+    
+    if (document.querySelector('.hero-subtitle')) {
+      gsap.fromTo('.hero-subtitle', 
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, delay: 0.4, ease: 'power3.out' }
+      );
+    }
+    
+    if (document.querySelector('.hero-buttons')) {
+      gsap.fromTo('.hero-buttons', 
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, delay: 0.6, ease: 'power3.out' }
+      );
+    }
+
+    // Floating elements subtle animation
+    if (document.querySelector('.floating-element')) {
+      gsap.to('.floating-element', {
+        y: -15,
+        rotation: 5,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power2.inOut',
+        stagger: 0.8
+      });
+    }
+
+    // Section headers scroll animation
+    if (document.querySelector('.section-header')) {
+      gsap.fromTo('.section-header', 
+        { y: 50, opacity: 0 },
+        { 
+          y: 0, 
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.section-header',
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+    }
+
+    // Features staggered animation
+    if (document.querySelector('.feature-card') && document.querySelector('.features-section')) {
+      gsap.fromTo('.feature-card', 
+        { y: 60, opacity: 0, scale: 0.95 },
+        { 
+          y: 0, 
+          opacity: 1, 
+          scale: 1,
+          duration: 0.6,
+          ease: 'power3.out',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: '.features-section',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+    }
+
+    // Community cards animation
+    if (document.querySelector('.community-card') && document.querySelector('#community')) {
+      gsap.fromTo('.community-card', 
+        { y: 40, opacity: 0 },
+        { 
+          y: 0, 
+          opacity: 1,
+          duration: 0.6,
+          ease: 'power3.out',
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: '#community',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+    }
+
+    // How it works steps animation
+    if (document.querySelector('.step-card') && document.querySelector('#how-it-works')) {
+      gsap.fromTo('.step-card', 
+        { y: 50, opacity: 0, scale: 0.9 },
+        { 
+          y: 0, 
+          opacity: 1,
+          scale: 1,
+          duration: 0.7,
+          ease: 'back.out(1.7)',
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: '#how-it-works',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+    }
+
+    // Stats counter animation
+    if (document.querySelector('.stat-number') && document.querySelector('.stats-section')) {
+      gsap.fromTo('.stat-number', 
+        { textContent: 0 },
+        { 
+          textContent: (i, target) => target.getAttribute('data-count'),
+          duration: 2,
+          ease: 'power2.out',
+          snap: { textContent: 1 },
+          scrollTrigger: {
+            trigger: '.stats-section',
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    }
+
+    // Parallax effect for floating elements
+    if (document.querySelector('.floating-element')) {
+      gsap.to('.floating-element', {
+        yPercent: -50,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: 'body',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    }
+  };
 
 //
   useEffect(() => {
@@ -53,22 +215,38 @@ const handleLogin = () => {
     {
       icon: Heart,
       title: "Smart Matching",
-      description: "AI-powered algorithm matches developers based on skills, interests, and collaboration goals."
+      description: "Find developers who complement your skills and share your passion for coding.",
+      gradient: "from-pink-500 to-red-500"
     },
     {
       icon: Code2,
-      title: "Skill-Based Profiles",
-      description: "Showcase your tech stack, projects, and coding preferences to find perfect collaborators."
+      title: "Tech Stack Profiles",
+      description: "Showcase your programming languages, frameworks, and project experience.",
+      gradient: "from-blue-500 to-cyan-500"
     },
     {
       icon: Users,
-      title: "Developer Community",
-      description: "Connect with 5k+ developers worldwide for mentorship, projects, and friendships."
+      title: "Developer Network",
+      description: "Connect with like-minded developers for collaboration and knowledge sharing.",
+      gradient: "from-purple-500 to-indigo-500"
     },
     {
-      icon: MessageCircle,
-      title: "Seamless Chat",
-      description: "Built-in messaging with code sharing, screen sharing, and project collaboration tools."
+      icon: Terminal,
+      title: "Project Collaboration",
+      description: "Find teammates for hackathons, open source projects, and startup ideas.",
+      gradient: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: GitBranch,
+      title: "Code Reviews",
+      description: "Get feedback on your code and help others improve their programming skills.",
+      gradient: "from-orange-500 to-yellow-500"
+    },
+    {
+      icon: Rocket,
+      title: "Career Growth",
+      description: "Find mentors, mentees, and peers to accelerate your development journey.",
+      gradient: "from-violet-500 to-purple-500"
     }
   ];
 
@@ -100,10 +278,10 @@ const handleLogin = () => {
   ];
 
   const stats = [
-    { number: "5K+", label: "Active Developers" },
-    { number: "1.2K+", label: "Successful Matches" },
-    { number: "350+", label: "Projects Created" },
-    { number: "94%", label: "Match Satisfaction" }
+    { number: "500", label: "Real Users", suffix: "+" },
+    { number: "100", label: "LinkedIn Impressions", suffix: "K+" },
+    { number: "50", label: "Active Connections", suffix: "+" },
+    { number: "98", label: "User Satisfaction", suffix: "%" }
   ];
 
   const handleVideoPlay = () => {
@@ -175,14 +353,14 @@ const handleLogin = () => {
             
             <div className="hidden lg:flex items-center space-x-8">
               <a href="#features" className="text-sm hover:text-pink-400 transition-colors">Features</a>
-              <a href="#pricing" className="text-sm hover:text-pink-400 transition-colors">Pricing</a>
+              <a href="#community" className="text-sm hover:text-pink-400 transition-colors">Community</a>
               <a href="#how-it-works" className="text-sm hover:text-pink-400 transition-colors">How It Works</a>
             </div>
 
             <div className="flex items-center space-x-3 md:space-x-4">
               <button className="text-sm hover:text-pink-400 transition-colors hidden md:block" onClick={handleLogin}>Login</button>
-              <button className="px-4 py-2 md:px-6 text-xs md:text-sm bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-medium hover:shadow-lg hover:shadow-pink-500/25 transition-all" onClick={handleLogin}>
-                Join Now
+              <button className="px-4 py-2 md:px-6 text-xs md:text-sm bg-gradient-to-r from-pink-500 to-purple-600 rounded-full font-medium hover:shadow-lg hover:shadow-pink-500/25 transition-all" onClick={handleGetStarted}>
+                Get Started
               </button>
             </div>
           </div>
@@ -199,88 +377,77 @@ const handleLogin = () => {
               <div className="text-xs md:text-sm text-pink-400 font-medium tracking-wide">
                 01 — THE FUTURE OF DEVELOPER NETWORKING
               </div>
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-none">
-                <span className="block">Find Your</span>
-                <span className="block bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                <span className="block hero-title">Connect</span>
+                <span className="block hero-title text-pink-400">
                   Code
                 </span>
-                <span className="block">Partner</span>
+                <span className="block hero-title">Collaborate</span>
               </h1>
             </div>
 
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-              Swipe right on developers who share your passion. Build amazing projects, 
-              find mentors, or discover your next co-founder in the world's first 
-              developer dating platform.
+            <p className="hero-subtitle text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-4">
+              The social network for developers. Connect with like-minded programmers, 
+              collaborate on projects, share knowledge, and build the future together.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 px-4">
-              <button className="w-full sm:w-auto group px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-base md:text-lg font-semibold hover:shadow-xl hover:shadow-pink-500/25 transition-all">
-                Start Matching
+            <div className="hero-buttons flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 px-4">
+              <button 
+                onClick={handleGetStarted}
+                className="w-full sm:w-auto group px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-base md:text-lg font-semibold hover:shadow-xl hover:shadow-pink-500/25 transition-all"
+              >
+                Join DevMatch
                 <ArrowRight className="inline-block ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </button>
               
               <button className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 border-2 border-gray-600 rounded-full text-base md:text-lg font-semibold hover:border-pink-400 hover:text-pink-400 transition-all">
-                Watch Demo
+                Explore Features
               </button>
             </div>
           </div>
         </div>
 
-        {/* Floating Elements - Hidden on mobile */}
-        <div className="hidden lg:block absolute top-1/4 left-20 animate-bounce">
-          <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
+        {/* Floating Code Elements */}
+        <div className="hidden lg:block absolute top-1/4 left-20 floating-element">
+          <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
             <Heart className="text-white" size={24} />
           </div>
         </div>
         
-        <div className="hidden lg:block absolute top-1/3 right-20 animate-bounce delay-1000">
-          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-lg flex items-center justify-center">
+        <div className="hidden lg:block absolute top-1/3 right-20 floating-element">
+          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center shadow-lg">
             <Code2 className="text-white" size={24} />
           </div>
         </div>
-      </section>
-
-      {/* Video Section */}
-      <section className="relative py-16 md:py-20">
-        <div className="max-w-5xl mx-auto px-4 md:px-6">
-          <div className="relative">
-            <div 
-              className="relative aspect-video bg-gray-900 rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer group"
-              onClick={handleVideoPlay}
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=600&fit=crop"
-                alt="DevMatch Demo"
-                className="w-full h-full object-cover"
-              />
-              
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-pink-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play className="text-white ml-1" size={24} />
-                </div>
-              </div>
-              
-              <video 
-                ref={videoRef}
-                className="absolute inset-0 w-full h-full object-cover opacity-0"
-                style={{ opacity: isVideoPlaying ? 1 : 0 }}
-              >
-                {/* Add your video source here */}
-              </video>
-            </div>
+        
+        <div className="hidden lg:block absolute bottom-1/4 left-32 floating-element">
+          <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <Terminal className="text-white" size={18} />
+          </div>
+        </div>
+        
+        <div className="hidden lg:block absolute bottom-1/3 right-32 floating-element">
+          <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-yellow-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <GitBranch className="text-white" size={18} />
           </div>
         </div>
       </section>
 
+
       {/* Stats Section */}
-      <section className="py-20 border-y border-gray-800">
+      <section className="stats-section py-20 border-y border-gray-800">
         <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Join the Growing <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">Developer Community</span>
+            </h2>
+            <p className="text-gray-400 text-lg">Trusted by developers worldwide</p>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  {stat.number}
+                  <span className="stat-number" data-count={stat.number}>0</span>{stat.suffix}
                 </div>
                 <div className="text-gray-400 text-sm uppercase tracking-wide">
                   {stat.label}
@@ -292,187 +459,84 @@ const handleLogin = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-32">
+      <section id="features" className="features-section py-32">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-20">
+          <div className="section-header text-center mb-20">
             <div className="text-sm text-pink-400 font-medium tracking-wide mb-4">
-              02 — FEATURES THAT MATTER
+              02 — POWERFUL FEATURES
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold mb-8">
-              Built For
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8">
+              Everything You Need
               <br />
-              <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                Developers
+              <span className="text-pink-400">
+                To Connect
               </span>
             </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Discover, connect, and collaborate with developers who share your passion for coding
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div 
                 key={index} 
-                className="group p-8 bg-gray-900/50 rounded-2xl border border-gray-800 hover:border-pink-500/50 transition-all hover:transform hover:scale-105"
+                className="feature-card group p-8 bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800 hover:border-pink-500/50 transition-all hover:transform hover:scale-105"
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-pink-500/25 transition-all">
+                <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-pink-500/25 transition-all`}>
                   <feature.icon className="text-white" size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-gray-400">{feature.description}</p>
+                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-32">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="text-center mb-16 md:mb-20">
-            <div className="text-xs md:text-sm text-pink-400 font-medium tracking-wide mb-4">
-              03 — CHOOSE YOUR PLAN
+      {/* Community Section */}
+      <section id="community" className="py-32 bg-gradient-to-br from-gray-900/50 to-black/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="section-header text-center mb-20">
+            <div className="text-sm text-pink-400 font-medium tracking-wide mb-4">
+              03 — DEVELOPER COMMUNITY
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
-              Find Your
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8">
+              Built By Developers
               <br />
-              <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                Perfect Plan
+              <span className="text-pink-400">
+                For Developers
               </span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-              Choose the membership that fits your coding journey and networking goals
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Join a thriving community where code meets collaboration. No premium barriers, just pure developer networking.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Silver Plan */}
-            <div className="relative p-8 bg-gray-900/50 rounded-2xl border border-gray-700 hover:border-gray-500 transition-all group">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-gradient-to-r from-gray-400 to-gray-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Star className="text-white" size={24} />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-300 mb-2">Silver</h3>
-                <div className="text-4xl font-bold text-white mb-4">
-                  $9<span className="text-lg text-gray-400">/month</span>
-                </div>
-                <p className="text-gray-400">Perfect for getting started</p>
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <div className="community-card text-center p-8 bg-gray-800/30 rounded-2xl border border-gray-700 hover:border-gray-600 transition-colors">
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Users className="text-white" size={24} />
               </div>
-
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center text-gray-300">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full mr-3"></div>
-                  20 matches per day
-                </li>
-                <li className="flex items-center text-gray-300">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full mr-3"></div>
-                  Basic profile customization
-                </li>
-                <li className="flex items-center text-gray-300">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full mr-3"></div>
-                  Standard chat features
-                </li>
-                <li className="flex items-center text-gray-300">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full mr-3"></div>
-                  Community access
-                </li>
-              </ul>
-
-              <button className="w-full py-3 bg-gray-700 hover:bg-gray-600 rounded-full font-semibold transition-all">
-                Start Silver
-              </button>
+              <h3 className="text-2xl font-bold mb-4">Open Source Spirit</h3>
+              <p className="text-gray-400">Free to use, built with transparency and community feedback at its core.</p>
             </div>
 
-            {/* Gold Plan - Popular */}
-            <div className="relative p-8 bg-gradient-to-br from-yellow-900/20 to-orange-900/20 rounded-2xl border-2 border-yellow-500 group transform scale-105">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-2 rounded-full text-sm font-bold">
-                  MOST POPULAR
-                </div>
+            <div className="community-card text-center p-8 bg-gray-800/30 rounded-2xl border border-gray-700 hover:border-gray-600 transition-colors">
+              <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Code2 className="text-white" size={24} />
               </div>
-
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Zap className="text-white" size={24} />
-                </div>
-                <h3 className="text-2xl font-bold text-yellow-400 mb-2">Gold</h3>
-                <div className="text-4xl font-bold text-white mb-4">
-                  $19<span className="text-lg text-gray-400">/month</span>
-                </div>
-                <p className="text-gray-300">For serious collaborators</p>
-              </div>
-
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
-                  Unlimited matches
-                </li>
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
-                  Advanced profile features
-                </li>
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
-                  Priority matching algorithm
-                </li>
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
-                  Enhanced chat & video calls
-                </li>
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
-                  Project collaboration tools
-                </li>
-              </ul>
-
-              <button className="w-full py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black rounded-full font-semibold hover:shadow-lg hover:shadow-yellow-500/25 transition-all">
-                Start Gold
-              </button>
+              <h3 className="text-2xl font-bold mb-4">Skill-First Matching</h3>
+              <p className="text-gray-400">Connect based on technical skills, project interests, and coding philosophy.</p>
             </div>
 
-            {/* Diamond Plan */}
-            <div className="relative p-8 bg-gradient-to-br from-blue-900/20 to-purple-900/20 rounded-2xl border border-blue-500 hover:border-blue-400 transition-all group">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Coffee className="text-white" size={24} />
-                </div>
-                <h3 className="text-2xl font-bold text-blue-400 mb-2">Diamond</h3>
-                <div className="text-4xl font-bold text-white mb-4">
-                  $39<span className="text-lg text-gray-400">/month</span>
-                </div>
-                <p className="text-gray-300">For elite developers</p>
+            <div className="community-card text-center p-8 bg-gray-800/30 rounded-2xl border border-gray-700 hover:border-gray-600 transition-colors">
+              <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Heart className="text-white" size={24} />
               </div>
-
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
-                  Everything in Gold
-                </li>
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
-                  VIP profile badge
-                </li>
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
-                  Personal matchmaking
-                </li>
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
-                  Exclusive events access
-                </li>
-                <li className="flex items-center text-white">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
-                  Premium support
-                </li>
-              </ul>
-
-              <button className="w-full py-3 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all">
-                Start Diamond
-              </button>
+              <h3 className="text-2xl font-bold mb-4">Genuine Connections</h3>
+              <p className="text-gray-400">Focus on meaningful relationships and collaborative opportunities.</p>
             </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <p className="text-gray-400 mb-4">All plans include a 7-day free trial</p>
-            <p className="text-sm text-gray-500">Cancel anytime • No hidden fees • Secure payments</p>
           </div>
         </div>
       </section>
@@ -484,43 +548,43 @@ const handleLogin = () => {
             <div className="text-xs md:text-sm text-pink-400 font-medium tracking-wide mb-4">
               04 — HOW IT WORKS
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8">
               Simple As
               <br />
-              <span className="bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                1-2-3
+              <span className="text-pink-400">
+                Code, Connect, Create
               </span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-            <div className="text-center">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl md:text-3xl font-bold text-white">1</span>
+            <div className="step-card text-center">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Code2 className="text-white" size={32} />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4">Create Profile</h3>
+              <h3 className="text-xl md:text-2xl font-bold mb-4">Showcase Your Code</h3>
               <p className="text-gray-400 leading-relaxed">
-                Set up your developer profile with skills, projects, and what you're looking for
+                Create a profile highlighting your tech stack, GitHub projects, and development interests
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-purple-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl md:text-3xl font-bold text-white">2</span>
+            <div className="step-card text-center">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Users className="text-white" size={32} />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4">Start Swiping</h3>
+              <h3 className="text-xl md:text-2xl font-bold mb-4">Discover Developers</h3>
               <p className="text-gray-400 leading-relaxed">
-                Browse through developer profiles and swipe right on those you'd like to connect with
+                Browse profiles of developers with complementary skills and shared interests
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl md:text-3xl font-bold text-white">3</span>
+            <div className="step-card text-center">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Rocket className="text-white" size={32} />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4">Start Building</h3>
+              <h3 className="text-xl md:text-2xl font-bold mb-4">Build Together</h3>
               <p className="text-gray-400 leading-relaxed">
-                Match, chat, and start collaborating on amazing projects together
+                Connect, collaborate, and create amazing projects with your new developer network
               </p>
             </div>
           </div>
@@ -531,24 +595,31 @@ const handleLogin = () => {
       <section className="py-32">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="text-sm text-pink-400 font-medium tracking-wide mb-4">
-            05 — JOIN THE REVOLUTION
+            05 — JOIN THE COMMUNITY
           </div>
-          <h2 className="text-6xl md:text-7xl font-bold mb-8">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
             <span className="block">Ready To</span>
-            <span className="block bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-              Match?
+            <span className="block text-pink-400">
+              Connect?
             </span>
           </h2>
           
           <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-            Join thousands of developers who found their perfect coding companions. 
-            Start your journey today with a 7-day free trial.
+            Join thousands of developers building the future together. 
+            Start connecting with your coding community today - completely free.
           </p>
           
-          <button className="group px-12 py-6 bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 rounded-full text-xl font-bold hover:shadow-2xl hover:shadow-pink-500/25 transition-all transform hover:scale-105">
-            Start Matching Now
+          <button 
+            onClick={handleGetStarted}
+            className="group px-12 py-6 bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 rounded-full text-xl font-bold hover:shadow-2xl hover:shadow-pink-500/25 transition-all transform hover:scale-105"
+          >
+            Join DevMatch Now
             <ArrowRight className="inline-block ml-3 group-hover:translate-x-2 transition-transform" size={24} />
           </button>
+          
+          <p className="text-gray-500 text-sm mt-6">
+            Free forever • No premium tiers • Built by developers, for developers
+          </p>
         </div>
       </section>
 
