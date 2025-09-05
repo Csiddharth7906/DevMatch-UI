@@ -70,7 +70,7 @@ const Requests = () => {
                                             onError={(e) => e.target.src = '/api/placeholder/60/60'}
                                         />
                                         <div className="flex-1 sm:flex-none min-w-0">
-                                            <h3 className="text-lg sm:text-xl font-semibold text-white mb-1 truncate sm:overflow-visible">
+                                            <h3 className="text-lg sm:text-xl font-semibold text-white mb-1 truncate sm:overflow-visible cursor-pointer hover:text-blue-300" onClick={() => window.location.href = `/profile/${request.fromUserId._id}`}>
                                                 {firstName} {lastName}
                                             </h3>
                                             {(age || gender) && (

@@ -9,7 +9,7 @@ import Connection from './components/Connection'
 import Requests from './components/Requests'
 import LandingPage from './components/LandingPage'
 import Chat from './components/Chat'
-
+import UserProfile from './components/UserProfile'
 
 const App = () => {
   return (
@@ -24,6 +24,7 @@ const App = () => {
          <Route path='/connection' element={<Connection />} />
          <Route path="/request" element={<Requests />} />
       </Route>
+         <Route path="/profile/:userId" element={<UserProfile />} />
          <Route path="/chat/:targetUserId" element={<Chat />} />
       </Routes>
     </>

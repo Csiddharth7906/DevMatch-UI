@@ -75,99 +75,149 @@ const Connection = () => {
     }
 
     return (
-        <div className="min-h-screen bg-slate-900 py-6 px-4">
-            <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-8">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">Your Network</h1>
-                    <p className="text-slate-400">{connections.length} connection{connections.length !== 1 ? 's' : ''}</p>
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8 px-4">
+            <div className="max-w-5xl mx-auto">
+                {/* Header Section */}
+                <div className="text-center mb-10">
+                    <div className="inline-flex items-center gap-3 mb-4">
+                        <div className="p-3 bg-blue-600/20 rounded-xl">
+                            <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                            Your Network
+                        </h1>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-slate-300">
+                        <span className="px-3 py-1 bg-blue-600/20 text-blue-300 rounded-full text-sm font-medium">
+                            {connections.length} connection{connections.length !== 1 ? 's' : ''}
+                        </span>
+                        <span className="text-slate-500">•</span>
+                        <span className="text-sm">Growing your professional circle</span>
+                    </div>
                 </div>
 
-                {/* Search */}
-                <div className="mb-6">
-                    <div className="relative">
+                {/* Search Bar */}
+                <div className="mb-8">
+                    <div className="relative max-w-md mx-auto">
                         <input
                             type="text"
-                            placeholder="Search connections..."
+                            placeholder="Search by name, skills, or bio..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-slate-800 border border-slate-700 rounded-lg py-3 px-4 pl-10 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full bg-slate-800/50 backdrop-blur-sm border border-slate-600/50 rounded-xl py-4 px-5 pl-12 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200"
                         />
-                        <svg className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="absolute left-4 top-4.5 h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
                 </div>
 
                 {filteredConnections.length === 0 ? (
-                    <div className="text-center py-12">
+                    <div className="text-center py-16">
+                        <div className="w-20 h-20 bg-slate-700/50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <svg className="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <h3 className="text-xl font-semibold text-white mb-2">No matches found</h3>
                         <p className="text-slate-400">No connections found matching "{searchTerm}"</p>
+                        <button 
+                            onClick={() => setSearchTerm('')}
+                            className="mt-4 px-4 py-2 bg-blue-600/20 text-blue-300 rounded-lg hover:bg-blue-600/30 transition-colors duration-200"
+                        >
+                            Clear search
+                        </button>
                     </div>
                 ) : (
 
-                <div className="grid gap-4">
+                <div className="grid gap-6">
                     {filteredConnections.map((connection) => {
                         const { _id, firstName, lastName, photoUrl, age, gender, about, skills } = connection;
                         return (
                             <div 
                                 key={_id} 
-                                className="bg-slate-800 hover:bg-slate-700/50 rounded-xl p-4 sm:p-6 border border-slate-700 hover:border-slate-600 transition-all duration-300 hover:shadow-lg"
+                                className="group bg-slate-800/60 backdrop-blur-sm hover:bg-slate-700/70 rounded-2xl p-6 border border-slate-600/30 hover:border-blue-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1"
                             >
-                                <div className="flex flex-col sm:flex-row gap-4">
-                                    <div className="flex items-center gap-4">
+                                <div className="flex flex-col sm:flex-row gap-6">
+                                    {/* Profile Section */}
+                                    <div className="flex items-start gap-4">
                                         <div className="relative">
                                             <img 
-                                                src={photoUrl || '/api/placeholder/60/60'} 
+                                                src={photoUrl || '/api/placeholder/80/80'} 
                                                 alt={`${firstName} ${lastName}`}
-                                                className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover bg-slate-600"
-                                                onError={(e) => e.target.src = '/api/placeholder/60/60'}
+                                                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover bg-slate-600 ring-2 ring-slate-600/50 group-hover:ring-blue-500/30 transition-all duration-300"
+                                                onError={(e) => e.target.src = '/api/placeholder/80/80'}
                                             />
-                                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-800"></div>
+                                            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-3 border-slate-800 shadow-lg"></div>
                                         </div>
                                         
-                                        <div className="flex-1">
-                                            <h3 className="text-lg font-semibold text-white">
+                                        <div className="flex-1 min-w-0">
+                                            <h3 
+                                                className="text-xl font-bold text-white mb-2 cursor-pointer hover:text-blue-300 transition-colors duration-200 group-hover:text-blue-200" 
+                                                onClick={() => window.location.href = `/profile/${_id}`}
+                                            >
                                                 {firstName} {lastName}
                                             </h3>
                                             {(age || gender) && (
-                                                <p className="text-slate-400 text-sm">
+                                                <div className="flex items-center gap-2 text-slate-400 text-sm mb-3">
+                                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                                                    </svg>
                                                     {age && `${age} years old`} {age && gender && " • "} {gender}
-                                                </p>
+                                                </div>
                                             )}
                                         </div>
                                     </div>
                                     
-                                    <div className="flex-1 space-y-3">
+                                    {/* Content Section */}
+                                    <div className="flex-1 space-y-4">
                                         {about && (
-                                            <p className="text-slate-300 text-sm leading-relaxed line-clamp-2">
-                                                {about}
-                                            </p>
+                                            <div>
+                                                <p className="text-slate-300 leading-relaxed line-clamp-2">
+                                                    {about}
+                                                </p>
+                                            </div>
                                         )}
                                         
                                         {skills && skills.length > 0 && (
-                                            <div className="flex flex-wrap gap-2">
-                                                {skills.slice(0, 3).map((skill, index) => (
-                                                    <span 
-                                                        key={index} 
-                                                        className="px-3 py-1 bg-blue-600/20 text-blue-300 rounded-full text-xs font-medium"
-                                                    >
-                                                        {skill}
-                                                    </span>
-                                                ))}
-                                                {skills.length > 3 && (
-                                                    <span className="px-3 py-1 bg-slate-700 text-slate-300 rounded-full text-xs">
-                                                        +{skills.length - 3} more
-                                                    </span>
-                                                )}
+                                            <div>
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                    <span className="text-sm font-medium text-slate-400">Skills</span>
+                                                </div>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {skills.slice(0, 4).map((skill, index) => (
+                                                        <span 
+                                                            key={index} 
+                                                            className="px-3 py-1.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-300 rounded-lg text-sm font-medium border border-blue-500/20"
+                                                        >
+                                                            {skill}
+                                                        </span>
+                                                    ))}
+                                                    {skills.length > 4 && (
+                                                        <span className="px-3 py-1.5 bg-slate-700/50 text-slate-300 rounded-lg text-sm border border-slate-600/30">
+                                                            +{skills.length - 4} more
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                         )}
                                     </div>
                                     
-                                    <div className="   flex justify-center md:flex-col">
+                                    {/* Action Section */}
+                                    <div className="flex flex-col gap-3 sm:items-end">
                                         <Link 
                                             to={`/chat/${_id}`} 
-                                            className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-center"
+                                            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-medium transition-all duration-200 text-center shadow-lg hover:shadow-blue-500/25 hover:scale-105 flex items-center gap-2"
                                         >
-                                            💬 Chat
+                                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
+                                            </svg>
+                                            Message
                                         </Link>
                                     </div>
                                 </div>
