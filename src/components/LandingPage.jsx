@@ -193,7 +193,13 @@ const navigate = useNavigate();
     }
   };
 
-//
+  // Initialize animations after component mounts
+  useEffect(() => {
+    if (!isLoading) {
+      initAnimations();
+    }
+  }, [isLoading]);
+
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
