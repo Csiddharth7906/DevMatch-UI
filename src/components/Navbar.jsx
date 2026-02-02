@@ -27,6 +27,7 @@ const Navbar = () => {
 
   const navItems = [
     { path: '/', label: 'Home', icon: 'ri-home-line' },
+    { path: '/explore', label: 'Explore', icon: 'ri-search-line' }, // Added Explore
     { path: '/connection', label: 'Connections', icon: 'ri-group-line' },
     { path: '/request', label: 'Requests', icon: 'ri-notification-line' },
   ];

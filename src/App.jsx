@@ -10,6 +10,7 @@ import Requests from './components/Requests'
 import LandingPage from './components/LandingPage'
 import Chat from './components/Chat'
 import UserProfile from './components/UserProfile'
+import Explore from './components/Explore';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
          <Route path='/profile' element={<Profile />} />
          <Route path='/connection' element={<Connection />} />
          <Route path="/request" element={<Requests />} />
+         <Route path="/explore" element={<Explore />} />
       </Route>
          <Route path="/profile/:userId" element={<UserProfile />} />
          <Route path="/chat/:targetUserId" element={<Chat />} />
